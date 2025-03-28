@@ -1,0 +1,141 @@
+u21@u21-VirtualBox:~$ cd test1
+u21@u21-VirtualBox:~/test1$ cd ..
+u21@u21-VirtualBox:~$ docker run -it ubuntu sh
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+5a7813e071bf: Already exists 
+Digest: sha256:72297848456d5d37d1262630108ab308d3e9ec7ed1c3286a32fe09856619a782
+Status: Downloaded newer image for ubuntu:latest
+
+u21@u21-VirtualBox:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+u21@u21-VirtualBox:~$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS                        PORTS     NAMES
+22b5882e724a   ubuntu         "sh"                     9 minutes ago   Exited (127) 40 seconds ago             festive_hopper
+60e87006eb57   b2589814f453   "entrypoint.sh docke…"   2 weeks ago     Exited (0) 2 weeks ago                  distracted_hopper
+cecf76d2bcd2   tomcat         "catalina.sh run"        2 weeks ago     Exited (130) 2 weeks ago                priceless_borg
+4e0a56beaca3   6013ae1a63c2   "/bin/bash"              2 weeks ago     Exited (0) 2 weeks ago                  sad_wing
+ecb1579ba0db   ubuntu:20.04   "/bin/bash"              2 weeks ago     Exited (0) 2 weeks ago                  compassionate_archimedes
+
+u21@u21-VirtualBox:~$ docker run -it b2589814f453 sh
+/var/www/html $ ls
+adminer.php        index.php          plugins
+designs            plugin-loader.php  plugins-enabled
+/var/www/html $ cd plugins
+/var/www/html/plugins $ 
+
+
+u21@u21-VirtualBox:~$ docker run -d adminer
+82af34b1c27d4ea441b5a7c0186da595674b794017b767a934c28aba058d8948
+u21@u21-VirtualBox:~$ dicker logs 82af34b1c27d4ea441b5a7c0186da595674b794017b767a934c28aba058d8948
+Команда «dicker» не найдена. Возможно, вы имели в виду:
+  команда 'ticker' из snap-пакета ticker (4.5.14)
+  команда 'docker' из snap-пакета docker (27.5.1)
+  команда 'ticker' из deb-пакета ticker (1.13)
+  команда 'docker' из deb-пакета docker.io (24.0.7-0ubuntu2~22.04.1)
+  команда 'docker' из deb-пакета podman-docker (3.4.4+ds1-1ubuntu1.22.04.2)
+См. 'snap info <имя_snap-пакета>', чтобы просмотреть дополнительные версии.
+u21@u21-VirtualBox:~$ docker logs 82af34b1c27d4ea441b5a7c0186da595674b794017b767a934c28aba058d8948
+ 
+[Fri Mar 28 07:10:32 2025] PHP 8.4.5 Development Server (http://[::]:8080) started
+u21@u21-VirtualBox:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS      NAMES
+82af34b1c27d   adminer   "entrypoint.sh docke…"   32 seconds ago   Up 29 seconds   8080/tcp   blissful_napier
+
+
+
+
+u21@u21-VirtualBox:~$ docker run -e MYSQL_ROOT_PASSWORD=12345 -d mysql
+58d575368a158c79e064d7b8b55b562da8e36eaf6d11fc9ff1d6311bb1a00ef5
+u21@u21-VirtualBox:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS             PORTS                 NAMES
+58d575368a15   mysql     "docker-entrypoint.s…"   17 seconds ago      Up 14 seconds      3306/tcp, 33060/tcp   goofy_perlman
+82af34b1c27d   adminer   "entrypoint.sh docke…"   About an hour ago   Up About an hour   8080/tcp              blissful_napier
+u21@u21-VirtualBox:~$ docker logs 58d575368a15
+2025-03-28 08:14:39+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 9.2.0-1.el9 started.
+2025-03-28 08:14:40+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2025-03-28 08:14:40+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 9.2.0-1.el9 started.
+2025-03-28 08:14:40+00:00 [Note] [Entrypoint]: Initializing database files
+2025-03-28T08:14:40.376173Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+2025-03-28T08:14:40.400506Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 9.2.0) initializing of server in progress as process 78
+2025-03-28T08:14:40.683606Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-03-28T08:14:58.642684Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+u21@u21-VirtualBox:~$ docker exec -it 58d575368a15 bash
+bash-5.1# ls
+afs   dev			  home	 media	proc  sbin  tmp
+bin   docker-entrypoint-initdb.d  lib	 mnt	root  srv   usr
+boot  etc			  lib64  opt	run   sys   var
+
+
+u21@u21-VirtualBox:~$ docker run -e redis_ROOT_PASSWORD=12345 -d redis
+835de6fa30f0c01f627402a686efba3700ef047f98571116a4a283e3b9e4b27c
+u21@u21-VirtualBox:~$ docker  ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS             PORTS                 NAMES
+835de6fa30f0   redis     "docker-entrypoint.s…"   9 seconds ago       Up 5 seconds       6379/tcp              goofy_mccarthy
+58d575368a15   mysql     "docker-entrypoint.s…"   12 minutes ago      Up 12 minutes      3306/tcp, 33060/tcp   goofy_perlman
+82af34b1c27d   adminer   "entrypoint.sh docke…"   About an hour ago   Up About an hour   8080/tcp              blissful_napier
+u21@u21-VirtualBox:~$ docker logs 835de6fa30f0
+1:C 28 Mar 2025 08:26:52.686 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:C 28 Mar 2025 08:26:52.687 * oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 28 Mar 2025 08:26:52.688 * Redis version=7.4.2, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 28 Mar 2025 08:26:52.688 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+1:M 28 Mar 2025 08:26:52.701 * monotonic clock: POSIX clock_gettime
+1:M 28 Mar 2025 08:26:52.710 * Running mode=standalone, port=6379.
+1:M 28 Mar 2025 08:26:52.711 * Server initialized
+1:M 28 Mar 2025 08:26:52.712 * Ready to accept connections tcp
+u21@u21-VirtualBox:~$ docker exec -it 835de6fa30f0 bash
+root@835de6fa30f0:/data# 
+
+
+u21@u21-VirtualBox:~$ docker run -e tomcat_ROOT_PASSWORD=12345 -d tomcat
+f5155a34fa997a77df9ddeb18200d2edf68d71d27d7979b98e5b1449940b394a
+u21@u21-VirtualBox:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS             PORTS                 NAMES
+f5155a34fa99   tomcat    "catalina.sh run"        9 seconds ago       Up 5 seconds       8080/tcp              goofy_mendel
+835de6fa30f0   redis     "docker-entrypoint.s…"   3 minutes ago       Up 3 minutes       6379/tcp              goofy_mccarthy
+58d575368a15   mysql     "docker-entrypoint.s…"   15 minutes ago      Up 15 minutes      3306/tcp, 33060/tcp   goofy_perlman
+82af34b1c27d   adminer   "entrypoint.sh docke…"   About an hour ago   Up About an hour   8080/tcp              blissful_napier
+u21@u21-VirtualBox:~$ docker logs f5155a34fa99 
+28-Mar-2025 08:30:30.669 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version name:   Apache Tomcat/11.0.5
+28-Mar-2025 08:30:30.712 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Feb 28 2025 15:54:41 UTC
+28-Mar-2025 08:30:30.712 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Server version number: 11.0.5.0
+28-Mar-2025 08:30:30.713 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Linux
+28-Mar-2025 08:30:30.713 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            6.8.0-52-generic
+28-Mar-2025 08:30:30.713 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+28-Mar-2025 08:30:30.715 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             /opt/java/openjdk
+28-Mar-2025 08:30:30.716 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           21.0.6+7-LTS
+28-Mar-2025 08:30:30.716 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Eclipse Adoptium
+28-Mar-2025 08:30:30.717 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         /usr/local/tomcat
+28-Mar-2025 08:30:30.719 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         /usr/local/tomcat
+28-Mar-2025 08:30:30.842 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=/usr/local/tomcat/conf/logging.properties
+28-Mar-2025 08:30:30.844 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+28-Mar-2025 08:30:30.845 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+28-Mar-2025 08:30:30.845 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+28-Mar-2025 08:30:30.845 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang=ALL-UNNAMED
+28-Mar-2025 08:30:30.845 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+28-Mar-2025 08:30:30.846 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.io=ALL-UNNAMED
+28-Mar-2025 08:30:30.848 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util=ALL-UNNAMED
+28-Mar-2025 08:30:30.848 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+28-Mar-2025 08:30:30.849 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+28-Mar-2025 08:30:30.851 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: --enable-native-access=ALL-UNNAMED
+28-Mar-2025 08:30:30.852 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=/usr/local/tomcat
+28-Mar-2025 08:30:30.855 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=/usr/local/tomcat
+28-Mar-2025 08:30:30.855 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=/usr/local/tomcat/temp
+28-Mar-2025 08:30:31.492 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent Loaded Apache Tomcat Native library [2.0.8] using APR version [1.7.2].
+28-Mar-2025 08:30:31.606 INFO [main] org.apache.catalina.core.AprLifecycleListener.initializeSSL OpenSSL successfully initialized [OpenSSL 3.0.13 30 Jan 2024]
+28-Mar-2025 08:30:33.513 INFO [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+28-Mar-2025 08:30:34.029 INFO [main] org.apache.catalina.startup.Catalina.load Server initialization in [4555] milliseconds
+28-Mar-2025 08:30:34.161 INFO [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+28-Mar-2025 08:30:34.162 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet engine: [Apache Tomcat/11.0.5]
+28-Mar-2025 08:30:34.198 INFO [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+28-Mar-2025 08:30:34.238 INFO [main] org.apache.catalina.startup.Catalina.start Server startup in [205] milliseconds
+u21@u21-VirtualBox:~$ docker exec -it f5155a34fa99  bash
+root@f5155a34fa99:/usr/local/tomcat# 
+
+
+u21@u21-VirtualBox:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS             PORTS                 NAMES
+f5155a34fa99   tomcat    "catalina.sh run"        7 minutes ago       Up 7 minutes       8080/tcp              goofy_mendel
+835de6fa30f0   redis     "docker-entrypoint.s…"   11 minutes ago      Up 11 minutes      6379/tcp              goofy_mccarthy
+58d575368a15   mysql     "docker-entrypoint.s…"   23 minutes ago      Up 23 minutes      3306/tcp, 33060/tcp   goofy_perlman
+82af34b1c27d   adminer   "entrypoint.sh docke…"   About an hour ago   Up About an hour   8080/tcp              blissful_napier
