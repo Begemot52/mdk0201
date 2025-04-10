@@ -1,0 +1,137 @@
+u21@u21-VirtualBox:~$ docker network inspect my192_N1
+[
+    {
+        "Name": "my192_N1",
+        "Id": "d15f2e22e75e56b97bbc8fd034150050018765cb2a58071632e35857581bf8d2",
+        "Created": "2025-04-10T13:58:07.469402949+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.31.0/25",
+                    "Gateway": "192.168.31.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+u21@u21-VirtualBox:~$ docker network inspect my192_N2
+[
+    {
+        "Name": "my192_N2",
+        "Id": "8071b4ae4bf899b2cc6fc050e9fa0fc8ffd3b09f2012af1f7f5c4c09fdb457d6",
+        "Created": "2025-04-10T13:57:50.121683013+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.31.128/26",
+                    "Gateway": "192.168.31.129"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+u21@u21-VirtualBox:~$ docker network inspect my192_N3
+[
+    {
+        "Name": "my192_N3",
+        "Id": "a4b1166a40ab0c879f72e115b97c49170de5e3530abb3aa51a77facf378a9288",
+        "Created": "2025-04-10T14:05:45.547035734+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.31.192/27",
+                    "Gateway": "192.168.31.193"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+u21@u21-VirtualBox:~$ docker network inspect my192_N4
+[
+    {
+        "Name": "my192_N4",
+        "Id": "028fd7570e7824a1662cde9359c99a464ae9bfd56804a7f87e4fbf77956411fb",
+        "Created": "2025-04-10T14:06:07.195720438+07:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "192.168.31.224/27",
+                    "Gateway": "192.168.31.225"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    }
+]
+
+
+u21@u21-VirtualBox:~$ docker run -itd --net my_bridge --name cont3 --rm alpine
+6121db358b2fbe952562e2fa084b5230ea476d99a6f35b6aa3c2226ee181edad
+docker: Error response from daemon: failed to set up container networking: network my_bridge not found
+
+Run 'docker run --help' for more information
+u21@u21-VirtualBox:~$ docker run -itd --net my_bridge --name cont4 --rm alpine
+3063dc3c5b944712a6eba4b4ca82ffce381432e2441d03065fefd441358be169
