@@ -1,0 +1,16 @@
+profesioanl@begemot:~$ sudo fdisk -l /dev/sdd
+[sudo] password for profesioanl: 
+Disk /dev/sdd: 5 GiB, 5368709120 bytes, 10485760 sectors
+Disk model: VBOX HARDDISK   
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: F1C3B878-BA0C-4103-8EB8-8D5C33187704
+
+Device       Start      End Sectors  Size Type
+/dev/sdd1  1050624  2099199 1048576  512M Linux filesystem
+/dev/sdd2  2099200  3147775 1048576  512M Linux filesystem
+/dev/sdd3  3147776  4196351 1048576  512M Linux LVM
+/dev/sdd4  4196352  6293503 2097152    1G Linux LVM
+/dev/sdd5  6293504 10485726 4192223    2G Linux filesystem
